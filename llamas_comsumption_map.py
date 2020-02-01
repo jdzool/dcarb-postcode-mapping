@@ -15,7 +15,7 @@ london_postcodes = list(london_postcodes.Postcodes)
 london_postcodes_half = [x.split(None, 1)[0] for x in london_postcodes]
 
 # load boundaries
-path = './data/post_code_boundaries/Districts.shp'
+path = './data/london_districts.shp'
 london_shp = gpd.read_file(path)
 
 # Find boundaries by London postcode 
@@ -34,8 +34,8 @@ consumption_data_half['postcode'] = consumption_data_half.london_postcodes_half
 
 consumption_data_map = london_shp.merge(consumption_data_half, left_on='postcode', right_on='postcode', how="inner")
 
-x = st.slider("Minimum threshold", 10000, 50000, 25000)
-y = st.slider("Maximum threshold", 0, 25000, 5000)
+x = st.slider("Minimum threshold", 0, 15000, 10000)
+y = st.slider("Maximum threshold", 0, 5000, 1000)
 
 consumption_data_map = consumption_data_map[(consumption_data_map['Consumption (kWh)']<x)] 
 consumption_data_map = consumption_data_map[(consumption_data_map['Consumption (kWh)']>y)] 
